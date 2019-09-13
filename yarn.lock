@@ -2022,6 +2022,11 @@ expo-sqlite@~6.0.0:
     "@types/websql" "^0.0.27"
     lodash "^4.17.11"
 
+expo-task-manager@~6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-6.0.0.tgz#acab77771ccdfaa7318df446542263e50aef46e2"
+  integrity sha512-7+zwpoSRrt1NnWqetnq51gSpFhecYafIONJyI6WebHqVvPuWNcBwp3+96nhFoKLnuBQdf0CTw3iJbbj2ujvf5A==
+
 expo-web-browser@~6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-6.0.0.tgz#63a59d4c02cd7ba47faa6a2eb04decb1a1ab2a32"
