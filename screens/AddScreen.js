@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Dimensions, View, StyleSheet, ScrollView } from "react-native";
-import { ScreenOrientation, C } from "expo";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { ScreenOrientation } from "expo";
 
 import LinkInput from "../components/LinkInput";
 import MapArea from "../components/MapArea";
@@ -13,7 +13,14 @@ export default class AddScreen extends Component {
       latitudeDelta: 5,
       longitudeDelta: 12.5
     },
-    circle: {},
+    area: {
+      latitude: 0,
+      longitude: 0,
+      deadRadius: 0,
+      radius: 0,
+      linkIn: "",
+      linkOut: ""
+    },
     orientHorizontal: false
   };
   async componentDidMount() {
@@ -40,6 +47,18 @@ export default class AddScreen extends Component {
     };
   };
 
+  handleInputsData = (text, type) => {
+    if (type === "coords") {
+      this.setState({
+        area: {
+          ...this.state.area,
+          latitude: text.latitude,
+          longitude: text.longitude
+        }
+      });
+    } else this.setState({ area: { ...this.state.area, [type]: text } });
+  };
+
   render() {
     return (
       <ScrollView
@@ -49,10 +68,17 @@ export default class AddScreen extends Component {
         }}
       >
         <View style={{ flex: 1 }}>
-          <MapArea position={this.state.position} />
+          <MapArea
+            tapHandler={this.handleInputsData}
+            position={this.state.position}
+            dataArea={this.state.area}
+          />
         </View>
         <View style={styles.container}>
-          <LinkInput />
+          <LinkInput
+            inputData={this.state.area}
+            handleInputsData={this.handleInputsData}
+          />
         </View>
       </ScrollView>
     );

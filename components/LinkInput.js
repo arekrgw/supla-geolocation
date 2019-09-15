@@ -1,15 +1,14 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 
-const LinkInput = () => {
-  handleInput = () => {};
+const LinkInput = props => {
   return (
     <View>
       <View style={styles.radiusContainer}>
         <View style={[styles.radius, { marginRight: 5 }]}>
           <Text style={styles.inpText}>Promień strefy(m):</Text>
           <TextInput
-            onChangeText={text => handleInput(text)}
+            onChangeText={text => props.handleInputsData(text, "radius")}
             style={styles.input}
             keyboardType="decimal-pad"
           />
@@ -20,7 +19,7 @@ const LinkInput = () => {
           </Text>
           <TextInput
             keyboardType="decimal-pad"
-            onChangeText={text => handleInput(text)}
+            onChangeText={text => props.handleInputsData(text, "deadRadius")}
             style={styles.input}
           />
         </View>
@@ -30,14 +29,14 @@ const LinkInput = () => {
           Link bezpośredni do sceny po wejściu w strefę:
         </Text>
         <TextInput
-          onChangeText={text => handleInput(text)}
+          onChangeText={text => props.handleInputsData(text, "linkIn")}
           style={styles.input}
         />
         <Text style={styles.inpText}>
           Link bezpośredni do sceny po opuszczeniu strefy:
         </Text>
         <TextInput
-          onChangeText={text => handleInput(text)}
+          onChangeText={text => props.handleInputsData(text, "linkOut")}
           style={styles.input}
         />
       </View>
