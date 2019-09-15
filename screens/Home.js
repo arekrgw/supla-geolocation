@@ -8,8 +8,13 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#2e7d32" />
-        <Text> Home </Text>
-        <FloatingAddButton />
+        <Text onPress={() => this.props.navigation.navigate("Add")}>
+          {" "}
+          Home{" "}
+        </Text>
+        <FloatingAddButton
+          handlePress={() => this.props.navigation.navigate("Add")}
+        />
       </View>
     );
   }

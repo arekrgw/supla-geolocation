@@ -22,6 +22,14 @@
       "infoPlist": {
         "UIBackgroundModes": ["location", "fetch"]
       }
+    },
+    "android": {
+      "package": "pl.suplageolocation",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAfs1eavA4GsRU_lOA47ViU6ozXSVHZTN8"
+        }
+      }
     }
   }
 }

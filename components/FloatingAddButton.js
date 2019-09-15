@@ -1,13 +1,17 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 class FloatingAddButton extends Component {
   render() {
     return (
-      <View onPress={() => this.props.handlePress()} style={styles.container}>
+      <TouchableOpacity
+        onPress={this.props.handlePress}
+        style={styles.container}
+        activeOpacity={0.8}
+      >
         <Ionicons style={styles.icon} name="md-add" />
-      </View>
+      </TouchableOpacity>
     );
   }
 }
