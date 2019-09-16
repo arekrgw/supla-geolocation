@@ -4,6 +4,14 @@ import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 
 export default class MapArea extends Component {
+  state = {
+    position: {
+      latitude: 52.04563,
+      longitude: 19.395569,
+      latitudeDelta: 5,
+      longitudeDelta: 12.5
+    }
+  };
   async componentDidMount() {
     const status = await Permissions.askAsync(Permissions.LOCATION);
     if (status) {
@@ -21,12 +29,13 @@ export default class MapArea extends Component {
   }
 
   render() {
-    console.log(this.props.dataArea);
+    const mapStyle = [{ flex: 1 }];
+    this.props.height && mapStyle.push({ height: this.props.height });
     return (
       <MapView
         ref={component => (this._map = component)}
-        style={{ flex: 1, height: 400 }}
-        initialRegion={this.props.position}
+        style={mapStyle}
+        initialRegion={this.state.position}
         mapType="hybrid"
         onPress={ev =>
           this.props.tapHandler(ev.nativeEvent.coordinate, "coords")

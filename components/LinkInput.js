@@ -4,6 +4,13 @@ import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 const LinkInput = props => {
   return (
     <View>
+      <View style={styles.inpContainer}>
+        <Text style={styles.inpText}>Nazwa strefy:</Text>
+        <TextInput
+          onChangeText={text => props.handleInputsData(text, "title")}
+          style={styles.input}
+        />
+      </View>
       <View style={styles.radiusContainer}>
         <View style={[styles.radius, { marginRight: 5 }]}>
           <Text style={styles.inpText}>Promień strefy(m):</Text>
@@ -40,8 +47,12 @@ const LinkInput = props => {
           style={styles.input}
         />
       </View>
-      <View style={{ marginTop: 15 }}>
-        <Button color="#263238" title="Zapisz strefę" />
+      <View style={{ marginTop: 15, paddingBottom: 30 }}>
+        <Button
+          onPress={props.saveButton}
+          color="#263238"
+          title="Zapisz strefę"
+        />
       </View>
     </View>
   );

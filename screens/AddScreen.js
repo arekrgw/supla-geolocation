@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, AsyncStorage } from "react-native";
 import { ScreenOrientation } from "expo";
+import shortid from "shortid";
+import Toast from "react-native-root-toast";
 
 import LinkInput from "../components/LinkInput";
 import MapArea from "../components/MapArea";
 
 export default class AddScreen extends Component {
   state = {
-    position: {
-      latitude: 52.04563,
-      longitude: 19.395569,
-      latitudeDelta: 5,
-      longitudeDelta: 12.5
-    },
     area: {
+      id: null,
+      title: "",
       latitude: 0,
       longitude: 0,
       deadRadius: 0,
@@ -43,7 +41,8 @@ export default class AddScreen extends Component {
 
   static navigationOptions = () => {
     return {
-      headerTitle: "Dodaj strefę"
+      headerTitle: "Dodaj strefę",
+      headerRight: false
     };
   };
 
@@ -59,26 +58,66 @@ export default class AddScreen extends Component {
     } else this.setState({ area: { ...this.state.area, [type]: text } });
   };
 
+  saveArea = async () => {
+    if (
+      this.state.area.latitude &&
+      this.state.area.radius &&
+      this.state.area.deadRadius &&
+      this.state.area.title
+    ) {
+      try {
+        let areas = await AsyncStorage.getItem("AREAS");
+        areas = JSON.parse(areas);
+        if (!this.state.area.id) {
+          await this.setState({
+            area: { ...this.state.area, id: shortid.generate() }
+          });
+        }
+        if (areas) {
+          const newArea = {
+            ...areas,
+            [this.state.area.id]: { ...this.state.area }
+          };
+          await AsyncStorage.setItem("AREAS", JSON.stringify(newArea));
+        } else {
+          const newArea = { [this.state.area.id]: { ...this.state.area } };
+          await AsyncStorage.setItem("AREAS", JSON.stringify(newArea));
+        }
+        Toast.show("Strefa dodana!", { duration: Toast.durations.LONG });
+        this.props.navigation.navigate("Home", { update: true });
+      } catch (er) {
+        console.log(er);
+      }
+    } else {
+      //TOAST
+      Toast.show("Uzupełnij wszystkie dane przed zapisem", {
+        duration: Toast.durations.LONG
+      });
+    }
+  };
+
   render() {
     return (
-      <ScrollView
-        contentContainerStyle={{
-          flex: 1,
-          flexDirection: this.state.orientHorizontal ? "row" : "column"
-        }}
-      >
-        <View style={{ flex: 1 }}>
+      <ScrollView>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: this.state.orientHorizontal ? "row" : "column"
+          }}
+        >
           <MapArea
+            height={this.state.orientHorizontal ? false : 450}
             tapHandler={this.handleInputsData}
             position={this.state.position}
             dataArea={this.state.area}
           />
-        </View>
-        <View style={styles.container}>
-          <LinkInput
-            inputData={this.state.area}
-            handleInputsData={this.handleInputsData}
-          />
+          <View style={styles.container}>
+            <LinkInput
+              saveButton={this.saveArea}
+              inputData={this.state.area}
+              handleInputsData={this.handleInputsData}
+            />
+          </View>
         </View>
       </ScrollView>
     );
