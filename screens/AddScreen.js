@@ -17,7 +17,8 @@ export default class AddScreen extends Component {
       deadRadius: 0,
       radius: 0,
       linkIn: "",
-      linkOut: ""
+      linkOut: "",
+      active: false
     },
     orientHorizontal: false
   };
@@ -106,7 +107,7 @@ export default class AddScreen extends Component {
           }}
         >
           <MapArea
-            height={this.state.orientHorizontal ? false : 450}
+            height={this.state.orientHorizontal ? false : 400}
             tapHandler={this.handleInputsData}
             position={this.state.position}
             dataArea={this.state.area}
