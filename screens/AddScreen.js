@@ -8,20 +8,26 @@ import LinkInput from "../components/LinkInput";
 import MapArea from "../components/MapArea";
 
 export default class AddScreen extends Component {
-  state = {
-    area: {
-      id: null,
-      title: "",
-      latitude: 0,
-      longitude: 0,
-      deadRadius: 0,
-      radius: 0,
-      linkIn: "",
-      linkOut: "",
-      active: false
-    },
-    orientHorizontal: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      area: props.navigation.state.params
+        ? { ...props.navigation.state.params.area }
+        : {
+            id: null,
+            title: "",
+            latitude: 0,
+            longitude: 0,
+            deadRadius: 0,
+            radius: 0,
+            linkIn: "",
+            linkOut: "",
+            active: false
+          },
+      orientHorizontal: false
+    };
+  }
+
   async componentDidMount() {
     const orientation = await ScreenOrientation.getOrientationAsync();
     this.orientationListener(orientation);

@@ -7,6 +7,9 @@ import {
   StatusBar,
   AsyncStorage
 } from "react-native";
+import _ from "lodash";
+import Toast from "react-native-root-toast";
+
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
 
@@ -32,9 +35,20 @@ class Home extends Component {
   }
   editClick = id => {
     this[id].hide();
+    this.props.navigation.navigate("Add", { area: this.state.areas[id] });
   };
-  deleteClick = id => {
+  deleteClick = async id => {
     this[id].hide();
+    let areas = this.state.areas;
+    const title = areas[id].title;
+    areas = _.omit(areas, id);
+    console.log(areas);
+    await AsyncStorage.setItem("AREAS", JSON.stringify(areas));
+    this[id] = undefined;
+    this.getAreas();
+    Toast.show(`Strefa: ${title} została usunięta`, {
+      duration: Toast.durations.LONG
+    });
   };
   renderAreas = () => {
     if (this.state.areas) {
@@ -66,7 +80,7 @@ class Home extends Component {
                 name="power-off"
               />
               <Menu
-                ref={ref => (this[this.state.areas[index].id] = ref)}
+                ref={ref => (this[index] = ref)}
                 button={
                   <Entypo
                     onPress={() => this[this.state.areas[index].id].show()}
@@ -75,15 +89,11 @@ class Home extends Component {
                   />
                 }
               >
-                <MenuItem
-                  onPress={() => this.editClick(this.state.areas[index].id)}
-                >
+                <MenuItem onPress={() => this.editClick(index)}>
                   <Text>Edytuj</Text>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem
-                  onPress={() => this.deleteClick(this.state.areas[index].id)}
-                >
+                <MenuItem onPress={() => this.deleteClick(index)}>
                   <Text style={{ color: "#d50000" }}>Usuń</Text>
                 </MenuItem>
               </Menu>

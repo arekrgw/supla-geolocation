@@ -14,14 +14,24 @@ export default class MapArea extends Component {
   };
   async componentDidMount() {
     const status = await Permissions.askAsync(Permissions.LOCATION);
-    if (status) {
-      const position = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.HIGH
-      });
+    if (!this.props.dataArea.longitude) {
+      if (status) {
+        const position = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.HIGH
+        });
+        this._map.animateCamera({
+          center: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          },
+          zoom: 15
+        });
+      }
+    } else {
       this._map.animateCamera({
         center: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          latitude: this.props.dataArea.latitude,
+          longitude: this.props.dataArea.longitude
         },
         zoom: 15
       });

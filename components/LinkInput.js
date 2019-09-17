@@ -7,6 +7,7 @@ const LinkInput = props => {
       <View style={styles.inpContainer}>
         <Text style={styles.inpText}>Nazwa strefy:</Text>
         <TextInput
+          value={props.inputData.title}
           onChangeText={text => props.handleInputsData(text, "title")}
           style={styles.input}
         />
@@ -15,6 +16,7 @@ const LinkInput = props => {
         <View style={[styles.radius, { marginRight: 5 }]}>
           <Text style={styles.inpText}>Promień strefy(m):</Text>
           <TextInput
+            value={props.inputData.radius.toString()}
             onChangeText={text => props.handleInputsData(text, "radius")}
             style={styles.input}
             keyboardType="decimal-pad"
@@ -25,6 +27,7 @@ const LinkInput = props => {
             Promień martwego pola w centrum strefy(m):
           </Text>
           <TextInput
+            value={props.inputData.deadRadius.toString()}
             keyboardType="decimal-pad"
             onChangeText={text => props.handleInputsData(text, "deadRadius")}
             style={styles.input}
@@ -36,6 +39,7 @@ const LinkInput = props => {
           Link bezpośredni do sceny po wejściu w strefę:
         </Text>
         <TextInput
+          value={props.inputData.linkIn}
           onChangeText={text => props.handleInputsData(text, "linkIn")}
           style={styles.input}
         />
@@ -43,6 +47,7 @@ const LinkInput = props => {
           Link bezpośredni do sceny po opuszczeniu strefy:
         </Text>
         <TextInput
+          value={props.inputData.linkOut}
           onChangeText={text => props.handleInputsData(text, "linkOut")}
           style={styles.input}
         />
