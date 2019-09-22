@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  AsyncStorage,
-  Button
-} from "react-native";
+import { View, StyleSheet, ScrollView, AsyncStorage } from "react-native";
 import { ScreenOrientation } from "expo";
 import shortid from "shortid";
 import Toast from "react-native-root-toast";
@@ -25,9 +19,9 @@ export default class AddScreen extends Component {
             latitude: 0,
             longitude: 0,
             deadRadius: 0,
-            outerRadius: 0,
             radius: 0,
-            channels: [],
+            linkIn: "",
+            linkOut: "",
             active: false
           },
       orientHorizontal: false
@@ -70,7 +64,7 @@ export default class AddScreen extends Component {
       });
     } else this.setState({ area: { ...this.state.area, [type]: text } });
   };
-  addChannel = () => {};
+
   saveArea = async () => {
     if (
       this.state.area.latitude &&
@@ -125,40 +119,11 @@ export default class AddScreen extends Component {
             dataArea={this.state.area}
           />
           <View style={styles.container}>
-            {/* MAP FUNCTION OVER AREA.CHANNELS */}
-          </View>
-          <View
-            style={[
-              {
-                flexDirection: "row",
-
-                marginTop: 15,
-                paddingBottom: 30
-              },
-              styles.container
-            ]}
-          >
-            {this.state.area.channels.length > 0 && (
-              <View style={{ flex: 1, marginRight: 5 }}>
-                <Button
-                  onPress={this.saveArea}
-                  color="#263238"
-                  title="Zapisz strefę"
-                />
-              </View>
-            )}
-            <View
-              style={{
-                flex: 1,
-                marginLeft: this.state.area.channels.length > 0 ? 5 : 0
-              }}
-            >
-              <Button
-                onPress={this.addChannel}
-                color="#424242"
-                title="Dodaj Kanał"
-              />
-            </View>
+            <LinkInput
+              saveButton={this.saveArea}
+              inputData={this.state.area}
+              handleInputsData={this.handleInputsData}
+            />
           </View>
         </View>
       </ScrollView>
