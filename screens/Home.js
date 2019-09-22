@@ -42,13 +42,18 @@ class Home extends Component {
     let areas = this.state.areas;
     const title = areas[id].title;
     areas = _.omit(areas, id);
-    console.log(areas);
     await AsyncStorage.setItem("AREAS", JSON.stringify(areas));
     this[id] = undefined;
     this.getAreas();
     Toast.show(`Strefa: ${title} została usunięta`, {
       duration: Toast.durations.LONG
     });
+  };
+  changeActivity = async index => {
+    let areas = this.state.areas;
+    areas[index].active = !areas[index].active;
+    await AsyncStorage.setItem("AREAS", JSON.stringify(areas));
+    this.getAreas();
   };
   renderAreas = () => {
     if (this.state.areas) {
@@ -60,7 +65,7 @@ class Home extends Component {
               styles.areasContainer,
               {
                 backgroundColor: this.state.areas[index].active
-                  ? "#8bc34a"
+                  ? "#c8e6c9"
                   : "#eeeeee"
               }
             ]}
@@ -76,6 +81,7 @@ class Home extends Component {
             </View>
             <View style={styles.areasActionButtons}>
               <FontAwesome
+                onPress={() => this.changeActivity(index)}
                 style={{ color: "#01579b", fontSize: 35, marginRight: 15 }}
                 name="power-off"
               />
@@ -84,7 +90,7 @@ class Home extends Component {
                 button={
                   <Entypo
                     onPress={() => this[this.state.areas[index].id].show()}
-                    style={{ fontSize: 25, color: "#bdbdbd" }}
+                    style={{ fontSize: 25, color: "#9e9e9e" }}
                     name="dots-three-vertical"
                   />
                 }
