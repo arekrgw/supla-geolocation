@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "curl-to-fetch": "^1.2.1",
     "expo": "^34.0.1",
     "expo-location": "~6.0.0",
     "expo-permissions": "~6.0.0",

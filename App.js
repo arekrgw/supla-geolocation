@@ -1,10 +1,10 @@
 import React from "react";
 import Navigator from "./navigator";
 
-import locationTask from "./geofence/locationTask";
+import locationMainTask from "./geofence/locationMainTask";
 
 export default function App() {
   return <Navigator />;
 }
 
-locationTask();
+locationMainTask();

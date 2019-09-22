@@ -1705,6 +1705,13 @@ css-in-js-utils@^2.0.0:
     hyphenate-style-name "^1.0.2"
     isobject "^3.0.1"
 
+curl-to-fetch@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/curl-to-fetch/-/curl-to-fetch-1.2.1.tgz#ce578497855137214fa477a6850512d4ce1741d9"
+  integrity sha512-WEEGobtFTzbxvFItRxlJKedcvDSXTwIYrzMga+V8+MNyVEBn0bTpmr/403l5Dno1Ebg5K8lGdDhwkWq7dQ8t9Q==
+  dependencies:
+    parse-curl "^0.2.3"
+
 debounce@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"
@@ -3906,6 +3913,13 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
+parse-curl@^0.2.3:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/parse-curl/-/parse-curl-0.2.6.tgz#bf755ae6b572de2745daf6b98af144dff32d225b"
+  integrity sha512-ENhXeIxG4A6wFvYSU87b0o3Tp6U+Wup069GYhXCn0ZP/E7evfvomTSM/MeEOs3QTyuye+u2r7fFRj6nX0q9kQA==
+  dependencies:
+    shellwords "^0.1.0"
+
 parse-glob@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/parse-glob/-/parse-glob-3.0.4.tgz#b2c376cfb11f35513badd173ef0bb6e3a388391c"
@@ -4735,7 +4749,7 @@ shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
-shellwords@^0.1.1:
+shellwords@^0.1.0, shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
