@@ -12,6 +12,7 @@ import Toast from "react-native-root-toast";
 
 import LinkInput from "../components/LinkInput";
 import MapArea from "../components/MapArea";
+import ChannelInputs from "../components/ChannelInputs";
 
 export default class AddScreen extends Component {
   constructor(props) {
@@ -70,7 +71,13 @@ export default class AddScreen extends Component {
       });
     } else this.setState({ area: { ...this.state.area, [type]: text } });
   };
-  addChannel = () => {};
+  addChannel = () => {
+    let area = this.state.area;
+    area.channels.push({
+      channelType: ""
+    });
+    this.setState({ area });
+  };
   saveArea = async () => {
     if (
       this.state.area.latitude &&
@@ -108,7 +115,27 @@ export default class AddScreen extends Component {
       });
     }
   };
-
+  changeChannelType = (index, val) => {
+    let area = this.state.area;
+    if (val === "gate") {
+      area.channels[index] = { channelType: val, toggle: "" };
+      this.setState({ area });
+    } else if (val === "switch") {
+      area.channels[index] = { channelType: val, on: "", off: "" };
+      this.setState({ area });
+    }
+  };
+  renderChannels = () => {
+    return this.state.area.channels.map((value, index) => (
+      <ChannelInputs
+        handleInputsData={() => {}}
+        channel={value}
+        key={index}
+        index={index}
+        changeChannelType={this.changeChannelType}
+      />
+    ));
+  };
   render() {
     return (
       <ScrollView>
@@ -124,40 +151,40 @@ export default class AddScreen extends Component {
             position={this.state.position}
             dataArea={this.state.area}
           />
-          <View style={styles.container}>
-            {/* MAP FUNCTION OVER AREA.CHANNELS */}
-          </View>
-          <View
-            style={[
-              {
-                flexDirection: "row",
-
-                marginTop: 15,
-                paddingBottom: 30
-              },
-              styles.container
-            ]}
-          >
-            {this.state.area.channels.length > 0 && (
-              <View style={{ flex: 1, marginRight: 5 }}>
+          <View style={{ flex: 1 }}>
+            <View style={styles.container}>{this.renderChannels()}</View>
+            <View
+              style={[
+                {
+                  flexDirection: this.state.orientHorizontal ? "column" : "row",
+                  flex: 1,
+                  marginTop: 15,
+                  paddingBottom: 30
+                },
+                styles.container
+              ]}
+            >
+              {this.state.area.channels.length > 0 && (
+                <View style={{ flex: 1, marginRight: 5 }}>
+                  <Button
+                    onPress={this.saveArea}
+                    color="#263238"
+                    title="Zapisz strefę"
+                  />
+                </View>
+              )}
+              <View
+                style={{
+                  flex: 1,
+                  marginLeft: this.state.area.channels.length > 0 ? 5 : 0
+                }}
+              >
                 <Button
-                  onPress={this.saveArea}
-                  color="#263238"
-                  title="Zapisz strefę"
+                  onPress={this.addChannel}
+                  color="#424242"
+                  title="Dodaj Kanał"
                 />
               </View>
-            )}
-            <View
-              style={{
-                flex: 1,
-                marginLeft: this.state.area.channels.length > 0 ? 5 : 0
-              }}
-            >
-              <Button
-                onPress={this.addChannel}
-                color="#424242"
-                title="Dodaj Kanał"
-              />
             </View>
           </View>
         </View>
