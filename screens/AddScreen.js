@@ -60,8 +60,8 @@ export default class AddScreen extends Component {
     };
   };
 
-  handleInputsData = (text, type) => {
-    if (type === "coords") {
+  handleInputsData = (text, key, channelIndex, channel = false) => {
+    if (key === "coords") {
       this.setState({
         area: {
           ...this.state.area,
@@ -69,7 +69,15 @@ export default class AddScreen extends Component {
           longitude: text.longitude
         }
       });
-    } else this.setState({ area: { ...this.state.area, [type]: text } });
+    } else if (channel) {
+      let area = this.state.area;
+      let channel = area.channels[channelIndex];
+      channel[key] = text;
+      area.channels[channelIndex] = channel;
+      this.setState({
+        area
+      });
+    } else this.setState({ area: { ...this.state.area, [key]: text } });
   };
   addChannel = () => {
     let area = this.state.area;
@@ -88,7 +96,8 @@ export default class AddScreen extends Component {
       this.state.area.latitude &&
       this.state.area.radius &&
       this.state.area.deadRadius &&
-      this.state.area.title
+      this.state.area.title &&
+      this.state.area.channels[0].channelType !== ""
     ) {
       try {
         let areas = await AsyncStorage.getItem("AREAS");
@@ -136,7 +145,7 @@ export default class AddScreen extends Component {
   renderChannels = () => {
     return this.state.area.channels.map((value, index) => (
       <ChannelInputs
-        handleInputsData={() => {}}
+        handleInputsData={this.handleInputsData}
         channel={value}
         key={index}
         removeChannel={this.removeChannel}
@@ -163,7 +172,24 @@ export default class AddScreen extends Component {
             dataArea={this.state.area}
           />
           <View style={{ flex: 1 }}>
-            <View style={styles.container}>{this.renderChannels()}</View>
+            <View
+              style={[
+                styles.container,
+                {
+                  borderBottomColor: "#eeeeee",
+                  marginBottom: 15,
+                  borderBottomWidth: 1
+                }
+              ]}
+            >
+              <LinkInput
+                inputData={this.state.area}
+                handleInputsData={this.handleInputsData}
+              />
+            </View>
+            <View style={{ flex: 1, paddingHorizontal: 15 }}>
+              {this.renderChannels()}
+            </View>
             <View
               style={[
                 {

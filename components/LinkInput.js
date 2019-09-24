@@ -34,31 +34,6 @@ const LinkInput = props => {
           />
         </View>
       </View>
-      <View style={styles.inpContainer}>
-        <Text style={styles.inpText}>
-          Link bezpośredni do sceny po wejściu w strefę:
-        </Text>
-        <TextInput
-          value={props.inputData.linkIn}
-          onChangeText={text => props.handleInputsData(text, "linkIn")}
-          style={styles.input}
-        />
-        <Text style={styles.inpText}>
-          Link bezpośredni do sceny po opuszczeniu strefy:
-        </Text>
-        <TextInput
-          value={props.inputData.linkOut}
-          onChangeText={text => props.handleInputsData(text, "linkOut")}
-          style={styles.input}
-        />
-      </View>
-      <View style={{ marginTop: 15, paddingBottom: 30 }}>
-        <Button
-          onPress={props.saveButton}
-          color="#263238"
-          title="Zapisz strefę"
-        />
-      </View>
     </View>
   );
 };

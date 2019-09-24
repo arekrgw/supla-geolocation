@@ -105,7 +105,7 @@ const ChannelInputs = props => {
               <TextInput
                 value={props.channel[key]}
                 onChangeText={text =>
-                  props.handleInputsData(text, key, props.index)
+                  props.handleInputsData(text, key, props.index, true)
                 }
                 style={styles.input}
               />
