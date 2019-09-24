@@ -78,6 +78,11 @@ export default class AddScreen extends Component {
     });
     this.setState({ area });
   };
+  removeChannel = index => {
+    let area = this.state.area;
+    area.channels.splice(index, 1);
+    this.setState({ area });
+  };
   saveArea = async () => {
     if (
       this.state.area.latitude &&
@@ -123,6 +128,9 @@ export default class AddScreen extends Component {
     } else if (val === "switch") {
       area.channels[index] = { channelType: val, on: "", off: "" };
       this.setState({ area });
+    } else if (val === "fracz") {
+      area.channels[index] = { channelType: val, on: "", off: "" };
+      this.setState({ area });
     }
   };
   renderChannels = () => {
@@ -131,6 +139,9 @@ export default class AddScreen extends Component {
         handleInputsData={() => {}}
         channel={value}
         key={index}
+        removeChannel={this.removeChannel}
+        separator={this.state.area.channels.length > 1 ? true : false}
+        lastIndex={this.state.area.channels.length - 1}
         index={index}
         changeChannelType={this.changeChannelType}
       />
@@ -158,7 +169,6 @@ export default class AddScreen extends Component {
                 {
                   flexDirection: this.state.orientHorizontal ? "column" : "row",
                   flex: 1,
-                  marginTop: 15,
                   paddingBottom: 30
                 },
                 styles.container
