@@ -2,48 +2,41 @@ import * as TaskManager from "expo-task-manager";
 import { AsyncStorage } from "react-native";
 import _ from "lodash";
 import { getDistance } from "geolib";
-export default () => {
-  let lastPosition = false;
-  let minimalSpeed = 5;
 
+import gateCH from "./channels/gate";
+// import switchCH from "./channels/switch";
+import fraczCH from "./channels/fracz";
+
+export default () => {
   TaskManager.defineTask("SUPLAGEOLOCATION", async ({ data }) => {
     console.log("GEO");
-    // const { coords } = data.locations[0];
-    // if (!lastPosition) lastPosition = coords;
-    // const areas = await AsyncStorage.getItem("AREAS");
+    const { coords } = data.locations[0];
+    const areas = await AsyncStorage.getItem("AREAS");
     // // GEO ITERATE
-    // _.mapKeys(JSON.parse(areas), async key => {
-    //   if (key.active) {
-    //     console.log("active");
-    //     const distanceCenter = getDistance(
-    //       { longitude: key.longitude, latitude: key.latitude },
-    //       { latitude: coords.latitude, longitude: coords.longitude },
-    //       0.1
-    //     );
+    _.mapKeys(JSON.parse(areas), async key => {
+      if (key.active) {
+        const distanceCenter = getDistance(
+          { longitude: key.longitude, latitude: key.latitude },
+          { latitude: coords.latitude, longitude: coords.longitude },
+          0.1
+        );
 
-    //     if (key.deadRadius < distanceCenter) {
-    //       console.log("NOT IN DEAD");
-    //       const lastDistanceCenter = getDistance(
-    //         { longitude: key.longitude, latitude: key.latitude },
-    //         {
-    //           latitude: lastPosition.latitude,
-    //           longitude: lastPosition.longitude
-    //         },
-    //         0.1
-    //       );
+        if (key.deadRadius < distanceCenter) {
+          const inGreenZone = distanceCenter < key.radius ? true : false;
 
-    //       if (distanceCenter <= key.radius ) {
-    //         console.log("OPEN THE GATES");
+          console.log("NOT IN DEAD");
 
-    //         fetch(key.linkIn, { method: "GET" });
-    //       } else if (distanceCenter > key.radius) {
-    //         fetch(key.linkOut, { method: "GET" });
-
-    //         console.log("CLOSE GATES");
-    //       }
-    //     }
-    //   }
-    // });
+          key.channels.map(channel => {
+            if (channel.channelType === "gate") {
+              gateCH(channel, inGreenZone);
+            } else if (channel.channelType === "switch") {
+            } else if (channel.channelType === "fracz") {
+              fraczCH(channel, inGreenZone);
+            }
+          });
+        }
+      }
+    });
     // // ------------------------- !GEO ITERATE
     // lastPosition = coords;
   });

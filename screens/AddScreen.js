@@ -4,7 +4,8 @@ import {
   StyleSheet,
   ScrollView,
   AsyncStorage,
-  Button
+  Button,
+  KeyboardAvoidingView
 } from "react-native";
 import { ScreenOrientation } from "expo";
 import shortid from "shortid";
@@ -158,73 +159,87 @@ export default class AddScreen extends Component {
   };
   render() {
     return (
-      <ScrollView>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: this.state.orientHorizontal ? "row" : "column"
-          }}
-        >
-          <MapArea
-            height={this.state.orientHorizontal ? false : 400}
-            tapHandler={this.handleInputsData}
-            position={this.state.position}
-            dataArea={this.state.area}
-          />
-          <View style={{ flex: 1 }}>
-            <View
-              style={[
-                styles.container,
-                {
-                  borderBottomColor: "#eeeeee",
-                  marginBottom: 15,
-                  borderBottomWidth: 1
-                }
-              ]}
-            >
-              <LinkInput
-                inputData={this.state.area}
-                handleInputsData={this.handleInputsData}
-              />
-            </View>
-            <View style={{ flex: 1, paddingHorizontal: 15 }}>
-              {this.renderChannels()}
-            </View>
-            <View
-              style={[
-                {
-                  flexDirection: this.state.orientHorizontal ? "column" : "row",
-                  flex: 1,
-                  paddingBottom: 30
-                },
-                styles.container
-              ]}
-            >
-              {this.state.area.channels.length > 0 && (
-                <View style={{ flex: 1, marginRight: 5 }}>
+      <KeyboardAvoidingView behavior="height">
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: this.state.orientHorizontal ? "row" : "column"
+            }}
+          >
+            <MapArea
+              height={this.state.orientHorizontal ? false : 400}
+              tapHandler={this.handleInputsData}
+              position={this.state.position}
+              dataArea={this.state.area}
+            />
+            <View style={{ flex: 1 }}>
+              <View
+                style={[
+                  styles.container,
+                  {
+                    borderBottomColor: "#eeeeee",
+                    marginBottom: 15,
+                    borderBottomWidth: 1
+                  }
+                ]}
+              >
+                <LinkInput
+                  inputData={this.state.area}
+                  handleInputsData={this.handleInputsData}
+                />
+              </View>
+              <View style={{ flex: 1, paddingHorizontal: 15 }}>
+                {this.renderChannels()}
+              </View>
+              <View
+                style={[
+                  {
+                    flexDirection: this.state.orientHorizontal
+                      ? "column"
+                      : "row",
+                    flex: 1,
+                    paddingBottom: 30
+                  },
+                  styles.container
+                ]}
+              >
+                {this.state.area.channels.length > 0 && (
+                  <View
+                    style={{
+                      flex: 1,
+                      marginRight: this.state.orientHorizontal ? 0 : 5
+                    }}
+                  >
+                    <Button
+                      onPress={this.saveArea}
+                      color="#263238"
+                      title="Zapisz strefę"
+                    />
+                  </View>
+                )}
+                <View
+                  style={{
+                    flex: 1,
+                    marginLeft:
+                      this.state.area.channels.length > 0
+                        ? this.state.orientHorizontal
+                          ? 0
+                          : 5
+                        : 0
+                  }}
+                >
                   <Button
-                    onPress={this.saveArea}
-                    color="#263238"
-                    title="Zapisz strefę"
+                    onPress={this.addChannel}
+                    color="#424242"
+                    title="Dodaj Kanał"
                   />
                 </View>
-              )}
-              <View
-                style={{
-                  flex: 1,
-                  marginLeft: this.state.area.channels.length > 0 ? 5 : 0
-                }}
-              >
-                <Button
-                  onPress={this.addChannel}
-                  color="#424242"
-                  title="Dodaj Kanał"
-                />
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

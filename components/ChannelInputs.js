@@ -7,12 +7,13 @@ import {
   TouchableOpacity
 } from "react-native";
 import { CustomPicker } from "react-native-custom-picker";
+import { AntDesign } from "@expo/vector-icons";
 
 const ChannelInputs = props => {
   const keysTranslation = {
     on: "Włączenie po wejściu w strefę",
     off: "Wyłączenie po wyjściu ze strefy",
-    toggle: "Przełączenie po wejściu/wyjściu do/ze strefy",
+    toggle: "Link bezpośredni bezwzględny",
     read: "Odczyt stanu kanału z cloud.supla.org"
   };
   const renderField = ({ selectedItem, defaultText }) => {
@@ -52,7 +53,7 @@ const ChannelInputs = props => {
   };
   const options = [
     { label: "GATE", value: "gate" },
-    { label: "SWITCH", value: "switch" },
+    // { label: "SWITCH", value: "switch" },
     { label: "FRACZ", value: "fracz" }
   ];
   return (
@@ -64,8 +65,15 @@ const ChannelInputs = props => {
         separator
       }
     >
-      <View style={{ flex: 1, flexDirection: "row", marginBottom: 10 }}>
-        <View style={{ flex: 3 }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          marginBottom: 10,
+          alignItems: "center"
+        }}
+      >
+        <View style={{ flexGrow: 1 }}>
           <CustomPicker
             value={options.find(val => val.value === props.channel.channelType)}
             options={options}
@@ -79,11 +87,12 @@ const ChannelInputs = props => {
             }
           />
         </View>
-        <View style={{ flex: 2 }}>
+        <View style={{ width: 40 }}>
           <TouchableOpacity
             style={{
               borderRadius: 3,
-              backgroundColor: "#f44336",
+              borderColor: "#f44336",
+              borderWidth: 1.5,
               paddingVertical: 5,
               marginLeft: 5
             }}
@@ -91,9 +100,10 @@ const ChannelInputs = props => {
               props.removeChannel(props.index);
             }}
           >
-            <Text style={{ color: "white", fontSize: 20, textAlign: "center" }}>
-              Usuń
-            </Text>
+            <AntDesign
+              name="delete"
+              style={{ color: "#f44336", fontSize: 20, textAlign: "center" }}
+            />
           </TouchableOpacity>
         </View>
       </View>

@@ -5,13 +5,13 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "0.1",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appicon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/appsplash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

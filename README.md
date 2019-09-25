@@ -1,7 +1,7 @@
 # SUPLA Geolocation
 
-#### Geolocation service for SUPLA for controlling channels based on device position
+#### Geolocation service for SUPLA to control channels based on device position
 
-Current State: in development
+Current Version: 0.1 (alpha testing)
 
-SUPLA - (open software for home automation)
+SUPLA - (open software for home automation) - https://supla.org

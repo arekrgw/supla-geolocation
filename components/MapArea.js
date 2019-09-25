@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MapView, { Marker, Circle } from "react-native-maps";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
+import { Dimensions } from "react-native";
 
 export default class MapArea extends Component {
   state = {
@@ -40,7 +41,9 @@ export default class MapArea extends Component {
 
   render() {
     const mapStyle = [{ flex: 1 }];
-    this.props.height && mapStyle.push({ height: this.props.height });
+    this.props.height
+      ? mapStyle.push({ height: this.props.height })
+      : mapStyle.push({ minHeight: Dimensions.get("window").height });
     return (
       <MapView
         ref={component => (this._map = component)}
