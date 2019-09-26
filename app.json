@@ -5,12 +5,12 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "0.21",
+    "version": "0.3",
     "orientation": "default",
     "icon": "./assets/appicon.png",
     "splash": {
       "image": "./assets/appsplash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#000"
     },
     "updates": {
@@ -24,6 +24,11 @@
       }
     },
     "android": {
+      "splash": {
+        "image": "./assets/appsplash.png",
+        "resizeMode": "native",
+        "backgroundColor": "#000"
+      },
       "package": "pl.suplageolocation",
       "config": {
         "googleMaps": {

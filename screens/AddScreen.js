@@ -161,87 +161,95 @@ export default class AddScreen extends Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior="padding"
         style={{ flex: 1 }}
+        behavior="padding"
         keyboardVerticalOffset={Header.HEIGHT + 50}
       >
-        <ScrollView>
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: this.state.orientHorizontal ? "row" : "column"
+          }}
+        >
           <View
-            style={{
-              flex: 1,
-              flexDirection: this.state.orientHorizontal ? "row" : "column"
-            }}
+            style={[
+              {
+                flex: 1,
+                position: "relative"
+              },
+              !this.state.orientHorizontal && { height: 400 }
+            ]}
           >
             <MapArea
-              height={this.state.orientHorizontal ? false : 400}
               tapHandler={this.handleInputsData}
               position={this.state.position}
               dataArea={this.state.area}
             />
-            <View style={{ flex: 1 }}>
-              <View
-                style={[
-                  styles.container,
-                  {
-                    borderBottomColor: "#eeeeee",
-                    marginBottom: 15,
-                    borderBottomWidth: 1
-                  }
-                ]}
-              >
-                <LinkInput
-                  inputData={this.state.area}
-                  handleInputsData={this.handleInputsData}
-                />
-              </View>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
-                {this.renderChannels()}
-              </View>
-              <View
-                style={[
-                  {
-                    flexDirection: this.state.orientHorizontal
-                      ? "column"
-                      : "row",
-                    flex: 1,
-                    paddingBottom: 30
-                  },
-                  styles.container
-                ]}
-              >
-                {this.state.area.channels.length > 0 && (
-                  <View
-                    style={{
-                      flex: 1,
-                      marginRight: this.state.orientHorizontal ? 0 : 5,
-                      marginBottom: this.state.orientHorizontal ? 5 : 0
-                    }}
-                  >
-                    <Button
-                      onPress={this.saveArea}
-                      color="#263238"
-                      title="Zapisz strefę"
-                    />
-                  </View>
-                )}
+          </View>
+          <View
+            style={{
+              flex: 1
+            }}
+          >
+            <View
+              style={[
+                styles.container,
+                {
+                  borderBottomColor: "#eeeeee",
+                  marginBottom: 15,
+                  borderBottomWidth: 1
+                }
+              ]}
+            >
+              <LinkInput
+                inputData={this.state.area}
+                handleInputsData={this.handleInputsData}
+              />
+            </View>
+            <View style={{ flex: 1, paddingHorizontal: 15 }}>
+              {this.renderChannels()}
+            </View>
+            <View
+              style={[
+                {
+                  flexDirection: this.state.orientHorizontal ? "column" : "row",
+                  flex: 1,
+                  paddingBottom: 30
+                },
+                styles.container
+              ]}
+            >
+              {this.state.area.channels.length > 0 && (
                 <View
                   style={{
                     flex: 1,
-                    marginLeft:
-                      this.state.area.channels.length > 0
-                        ? this.state.orientHorizontal
-                          ? 0
-                          : 5
-                        : 0,
-                    paddingBottom: this.state.orientHorizontal ? 100 : 0
+                    marginRight: this.state.orientHorizontal ? 0 : 5,
+                    marginBottom: this.state.orientHorizontal ? 5 : 0
                   }}
                 >
                   <Button
-                    onPress={this.addChannel}
-                    color="#424242"
-                    title="Dodaj Kanał"
+                    onPress={this.saveArea}
+                    color="#263238"
+                    title="Zapisz strefę"
                   />
                 </View>
+              )}
+              <View
+                style={{
+                  flex: 1,
+                  marginLeft:
+                    this.state.area.channels.length > 0
+                      ? this.state.orientHorizontal
+                        ? 0
+                        : 5
+                      : 0
+                  // paddingBottom: this.state.orientHorizontal ? 100 : 0
+                }}
+              >
+                <Button
+                  onPress={this.addChannel}
+                  color="#424242"
+                  title="Dodaj Kanał"
+                />
               </View>
             </View>
           </View>
