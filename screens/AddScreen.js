@@ -14,6 +14,7 @@ import Toast from "react-native-root-toast";
 import LinkInput from "../components/LinkInput";
 import MapArea from "../components/MapArea";
 import ChannelInputs from "../components/ChannelInputs";
+import { Header } from "react-navigation-stack";
 
 export default class AddScreen extends Component {
   constructor(props) {
@@ -24,8 +25,8 @@ export default class AddScreen extends Component {
         : {
             id: null,
             title: "",
-            latitude: 0,
-            longitude: 0,
+            latitude: "",
+            longitude: "",
             deadRadius: 0,
             outerRadius: 0,
             radius: 0,
@@ -159,7 +160,11 @@ export default class AddScreen extends Component {
   };
   render() {
     return (
-      <KeyboardAvoidingView behavior="height">
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Header.HEIGHT + 50}
+      >
         <ScrollView>
           <View
             style={{
@@ -208,7 +213,8 @@ export default class AddScreen extends Component {
                   <View
                     style={{
                       flex: 1,
-                      marginRight: this.state.orientHorizontal ? 0 : 5
+                      marginRight: this.state.orientHorizontal ? 0 : 5,
+                      marginBottom: this.state.orientHorizontal ? 5 : 0
                     }}
                   >
                     <Button
@@ -226,7 +232,8 @@ export default class AddScreen extends Component {
                         ? this.state.orientHorizontal
                           ? 0
                           : 5
-                        : 0
+                        : 0,
+                    paddingBottom: this.state.orientHorizontal ? 100 : 0
                   }}
                 >
                   <Button

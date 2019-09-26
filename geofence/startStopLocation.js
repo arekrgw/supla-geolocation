@@ -8,11 +8,11 @@ const startStopLocation = async option => {
     if (status === "granted") {
       await Location.startLocationUpdatesAsync("SUPLAGEOLOCATION", {
         accuracy: Location.Accuracy.BestForNavigation,
-        // timeInterval: 2000,
+        timeInterval: 1500,
         foregroundService: {
           notificationTitle: "SUPLA GEOLOCATION",
           notificationBody: "Śledzenie twojej lokalizacji jest włączone",
-          notificationColor: "#ddd"
+          notificationColor: "#388e3c"
         }
       });
     }

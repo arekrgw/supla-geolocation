@@ -21,7 +21,10 @@ export default () => {
           0.1
         );
 
-        if (key.deadRadius < distanceCenter) {
+        if (
+          key.deadRadius < distanceCenter &&
+          distanceCenter < key.radius + 200
+        ) {
           const inGreenZone = distanceCenter < key.radius ? true : false;
 
           console.log("NOT IN DEAD");

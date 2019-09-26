@@ -41,9 +41,8 @@ export default class MapArea extends Component {
 
   render() {
     const mapStyle = [{ flex: 1 }];
-    this.props.height
-      ? mapStyle.push({ height: this.props.height })
-      : mapStyle.push({ minHeight: Dimensions.get("window").height });
+    this.props.height && mapStyle.push({ height: this.props.height });
+    // : mapStyle.push({ minHeight: Dimensions.get("window").height });
     return (
       <MapView
         ref={component => (this._map = component)}

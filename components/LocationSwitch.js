@@ -14,7 +14,6 @@ export default class LocationSwitch extends React.Component {
     setLocationUpdates(this.state.switch);
   }
   switchChange = async e => {
-    console.log(e);
     await this.setState({ switch: e });
     setLocationUpdates(this.state.switch);
   };

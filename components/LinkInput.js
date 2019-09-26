@@ -16,7 +16,7 @@ const LinkInput = props => {
         <View style={[styles.radius, { marginRight: 5 }]}>
           <Text style={styles.inpText}>Promień strefy(m):</Text>
           <TextInput
-            value={props.inputData.radius.toString()}
+            value={props.inputData.radius ? props.inputData.radius : ""}
             onChangeText={text => props.handleInputsData(text, "radius")}
             style={styles.input}
             keyboardType="decimal-pad"
@@ -27,7 +27,7 @@ const LinkInput = props => {
             Promień martwego pola w centrum strefy(m):
           </Text>
           <TextInput
-            value={props.inputData.deadRadius.toString()}
+            value={props.inputData.deadRadius ? props.inputData.deadRadius : ""}
             keyboardType="decimal-pad"
             onChangeText={text => props.handleInputsData(text, "deadRadius")}
             style={styles.input}
