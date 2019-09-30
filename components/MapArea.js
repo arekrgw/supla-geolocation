@@ -14,7 +14,7 @@ export default class MapArea extends Component {
       longitudeDelta: 12.5
     }
   };
-  async componentDidMount() {
+  setMapCamera = async () => {
     const status = await Permissions.askAsync(Permissions.LOCATION);
     if (!this.props.dataArea.longitude) {
       if (status) {
@@ -28,9 +28,10 @@ export default class MapArea extends Component {
           },
           zoom: 15
         });
+        console.log("ZOOM");
       }
     } else {
-      console.log("EDITZOOM");
+      console.log("EDITZOOM", this.props.dataArea);
       this._map.animateCamera({
         center: {
           latitude: this.props.dataArea.latitude,
@@ -39,8 +40,7 @@ export default class MapArea extends Component {
         zoom: 15
       });
     }
-  }
-
+  };
   render() {
     const mapStyle = [{ flex: 1, ...StyleSheet.absoluteFillObject }];
     // this.props.height
@@ -48,6 +48,7 @@ export default class MapArea extends Component {
     //   : mapStyle.push({ minHeight: Dimensions.get("window").height });
     return (
       <MapView
+        onMapReady={this.setMapCamera}
         ref={component => (this._map = component)}
         style={mapStyle}
         initialRegion={this.state.position}

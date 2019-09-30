@@ -35,7 +35,6 @@ export default () => {
           distanceCenter < key.radius + 200
         ) {
           const inGreenZone = distanceCenter < key.radius ? true : false;
-
           //NOTIFICATIONS
           if (lastArea[key.id] !== "in" && inGreenZone) {
             dismissNotification(key.id);
@@ -46,7 +45,7 @@ export default () => {
           } else if (
             lastArea[key.id] !== "out" &&
             !inGreenZone &&
-            distanceCenter < key.radius + 200
+            distanceCenter < parseInt(key.radius) + 200
           ) {
             dismissNotification(key.id);
             lastID[key.id] = await zoneNotification(
