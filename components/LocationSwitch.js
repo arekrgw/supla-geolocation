@@ -20,13 +20,25 @@ export default class LocationSwitch extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.onoff}>On/Off</Text>
+        <Text
+          style={[
+            styles.off,
+            { fontWeight: !this.state.switch ? "600" : "400" }
+          ]}
+        >
+          Off
+        </Text>
         <Switch
           onValueChange={e => this.switchChange(e)}
           value={this.state.switch}
           trackColor={{ false: "#b71c1c", true: "#1b5e20" }}
           thumbColor="#ffffff"
         />
+        <Text
+          style={[styles.on, { fontWeight: this.state.switch ? "600" : "400" }]}
+        >
+          On
+        </Text>
       </View>
     );
   }
@@ -39,8 +51,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  onoff: {
+  off: {
     color: "#e0e0e0",
     marginRight: 5
+  },
+  on: {
+    color: "#e0e0e0",
+    marginLeft: 5
   }
 });

@@ -30,6 +30,7 @@ export default class MapArea extends Component {
         });
       }
     } else {
+      console.log("EDITZOOM");
       this._map.animateCamera({
         center: {
           latitude: this.props.dataArea.latitude,

@@ -29,7 +29,6 @@ class Home extends Component {
     } else {
       this.setState({ areas: {} });
     }
-    console.log("GET AREAS FUNC");
   };
   removeAreas = async () => {
     AsyncStorage.removeItem("AREAS");
@@ -55,15 +54,12 @@ class Home extends Component {
   componentWillUnmount() {
     ScreenOrientation.removeOrientationChangeListeners();
   }
-  componentDidUpdate() {
-    if (this.props.navigation.getParam("update", false)) {
-      this.props.navigation.setParams({ update: false });
-      this.getAreas();
-    }
-  }
   editClick = id => {
     this[id].hide();
-    this.props.navigation.navigate("Add", { area: this.state.areas[id] });
+    this.props.navigation.navigate("Add", {
+      area: this.state.areas[id],
+      update: this.getAreas
+    });
   };
   deleteClick = async id => {
     this[id].hide();
@@ -172,7 +168,9 @@ class Home extends Component {
         <StatusBar backgroundColor="#2e7d32" />
         {this.renderAreas()}
         <FloatingAddButton
-          handlePress={() => this.props.navigation.navigate("Add")}
+          handlePress={() =>
+            this.props.navigation.navigate("Add", { update: this.getAreas })
+          }
         />
       </View>
     );

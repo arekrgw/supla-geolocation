@@ -7,9 +7,18 @@ import gateCH from "./channels/gate";
 // import switchCH from "./channels/switch";
 import fraczCH from "./channels/fracz";
 
+import { zoneNotification } from "./notifications";
+import { Notifications } from "expo";
+
 export default () => {
+  let lastArea = {}; // in, out, dead
+  let lastID = {};
+
+  const dismissNotification = async areaID => {
+    if (lastID[areaID]) Notifications.dismissNotificationAsync(lastID[areaID]);
+  };
+
   TaskManager.defineTask("SUPLAGEOLOCATION", async ({ data }) => {
-    console.log("GEO");
     const { coords } = data.locations[0];
     const areas = await AsyncStorage.getItem("AREAS");
     // // GEO ITERATE
@@ -27,16 +36,41 @@ export default () => {
         ) {
           const inGreenZone = distanceCenter < key.radius ? true : false;
 
-          console.log("NOT IN DEAD");
+          //NOTIFICATIONS
+          if (lastArea[key.id] !== "in" && inGreenZone) {
+            dismissNotification(key.id);
+            lastID[key.id] = await zoneNotification(
+              `Jesteś w strefie: ${key.title}`
+            );
+            lastArea[key.id] = "in";
+          } else if (
+            lastArea[key.id] !== "out" &&
+            !inGreenZone &&
+            distanceCenter < key.radius + 200
+          ) {
+            dismissNotification(key.id);
+            lastID[key.id] = await zoneNotification(
+              `Jesteś poza strefą: ${key.title}`
+            );
+            lastArea[key.id] = "out";
+          }
 
           key.channels.map(channel => {
             if (channel.channelType === "gate") {
-              gateCH(channel, inGreenZone);
+              gateCH(channel, inGreenZone, key.title);
             } else if (channel.channelType === "switch") {
             } else if (channel.channelType === "fracz") {
               fraczCH(channel, inGreenZone);
             }
           });
+        } else {
+          if (lastArea[key.id] !== "dead") {
+            dismissNotification(key.id);
+            lastID[key.id] = await zoneNotification(
+              `Jesteś w martwym polu strefy: ${key.title}`
+            );
+            lastArea[key.id] = "dead";
+          }
         }
       }
     });

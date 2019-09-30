@@ -1,4 +1,6 @@
-const gate = async (channel, inGreenZone) => {
+import { actionHappend } from "../notifications";
+
+const gate = async (channel, inGreenZone, areaName) => {
   let gateStatus;
   try {
     const g = await fetch(`${channel.toggle}/read`, {
@@ -11,16 +13,16 @@ const gate = async (channel, inGreenZone) => {
     const gateStatus = await g.json();
 
     if (inGreenZone && gateStatus.hi && gateStatus.partial_hi) {
-      console.log("OPEN");
       try {
         fetch(`${channel.toggle}/open-close`, { method: "GET" });
+        actionHappend("Brama się otwiera", areaName);
       } catch (er) {}
     } else if (!inGreenZone && !gateStatus.hi && !gateStatus.partial_hi) {
-      console.log("Close");
       try {
         fetch(`${channel.toggle}/open-close`, { method: "GET" });
+        actionHappend("Brama się zamyka", areaName);
       } catch (er) {}
-    } else console.log("NONE");
+    }
   } catch (er) {}
 };
 

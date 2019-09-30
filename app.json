@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "0.3",
+    "version": "0.4",
     "orientation": "default",
     "icon": "./assets/appicon.png",
     "splash": {
@@ -15,6 +15,9 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0
+    },
+    "notification": {
+      "icon": "./assets/appicon.png"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {

@@ -20,7 +20,7 @@ export default class AddScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      area: props.navigation.state.params
+      area: props.navigation.getParam("area", false)
         ? { ...props.navigation.state.params.area }
         : {
             id: null,
@@ -120,7 +120,8 @@ export default class AddScreen extends Component {
           await AsyncStorage.setItem("AREAS", JSON.stringify(newArea));
         }
         Toast.show("Strefa dodana!", { duration: Toast.durations.LONG });
-        this.props.navigation.navigate("Home", { update: true });
+        this.props.navigation.navigate("Home");
+        this.props.navigation.getParam("update")();
       } catch (er) {
         console.log(er);
       }
