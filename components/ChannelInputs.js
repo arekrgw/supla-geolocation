@@ -14,7 +14,8 @@ const ChannelInputs = props => {
     on: "Włączenie po wejściu w strefę",
     off: "Wyłączenie po wyjściu ze strefy",
     toggle: "Link bezpośredni bezwzględny",
-    read: "Odczyt stanu kanału z cloud.supla.org"
+    read: "Odczyt stanu kanału z cloud.supla.org",
+    time: "Podaj czas jaki brama potrzebuje na otwarcie/zamknięcie (sekundy)"
   };
   const renderField = ({ selectedItem, defaultText }) => {
     return (
@@ -53,7 +54,8 @@ const ChannelInputs = props => {
   };
   const options = [
     { label: "GATE", value: "gate" },
-    // { label: "SWITCH", value: "switch" },
+    { label: "SWITCH", value: "switch" },
+    { label: "GATETIME", value: "gateontime" },
     { label: "FRACZ", value: "fracz" }
   ];
   return (
@@ -117,6 +119,7 @@ const ChannelInputs = props => {
                 onChangeText={text =>
                   props.handleInputsData(text, key, props.index, true)
                 }
+                keyboardType={key === "time" ? "decimal-pad" : "default"}
                 style={styles.input}
               />
             </View>

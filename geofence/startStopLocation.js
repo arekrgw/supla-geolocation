@@ -7,8 +7,8 @@ const startStopLocation = async option => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === "granted") {
       await Location.startLocationUpdatesAsync("SUPLAGEOLOCATION", {
-        accuracy: Location.Accuracy.BestForNavigation,
-        timeInterval: 1500,
+        accuracy: Location.Accuracy.Highest,
+        timeInterval: 2000,
         foregroundService: {
           notificationTitle: "SUPLA GEOLOCATION",
           notificationBody: "Śledzenie twojej lokalizacji jest włączone",

@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "0.42",
+    "version": "0.5",
     "orientation": "default",
     "icon": "./assets/appicon.png",
     "splash": {
@@ -17,7 +17,9 @@
       "fallbackToCacheTimeout": 0
     },
     "notification": {
-      "icon": "./assets/appicon.png"
+      "icon": "./assets/appiconnoti.png",
+      "androidMode": "collapse",
+      "androidCollapsedTitle": "Powiadomienia ze stref"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {

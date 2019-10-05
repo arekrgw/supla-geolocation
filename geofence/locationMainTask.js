@@ -4,8 +4,9 @@ import _ from "lodash";
 import { getDistance } from "geolib";
 
 import gateCH from "./channels/gate";
-// import switchCH from "./channels/switch";
+import switchCH from "./channels/switch";
 import fraczCH from "./channels/fracz";
+import gateTime from "./channels/gate_time";
 
 import { zoneNotification } from "./notifications";
 import { Notifications } from "expo";
@@ -13,6 +14,13 @@ import { Notifications } from "expo";
 export default () => {
   let lastArea = {}; // in, out, dead
   let lastID = {};
+  let timeFlag = true;
+  const timeoutGate = time => {
+    timeFlag = false;
+    setTimeout(() => {
+      timeFlag = true;
+    }, time * 1000);
+  };
 
   const dismissNotification = async areaID => {
     if (lastID[areaID]) Notifications.dismissNotificationAsync(lastID[areaID]);
@@ -58,8 +66,11 @@ export default () => {
             if (channel.channelType === "gate") {
               gateCH(channel, inGreenZone, key.title);
             } else if (channel.channelType === "switch") {
+              switchCH(channel, inGreenZone);
             } else if (channel.channelType === "fracz") {
               fraczCH(channel, inGreenZone);
+            } else if (channel.channelType === "gateontime") {
+              gateTime(channel, inGreenZone, timeoutGate, timeFlag);
             }
           });
         } else {

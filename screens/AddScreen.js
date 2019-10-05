@@ -138,10 +138,13 @@ export default class AddScreen extends Component {
       area.channels[index] = { channelType: val, toggle: "" };
       this.setState({ area });
     } else if (val === "switch") {
-      area.channels[index] = { channelType: val, on: "", off: "" };
+      area.channels[index] = { channelType: val, toggle: "" };
       this.setState({ area });
     } else if (val === "fracz") {
       area.channels[index] = { channelType: val, on: "", off: "" };
+      this.setState({ area });
+    } else if (val === "gateontime") {
+      area.channels[index] = { channelType: val, toggle: "", time: "" };
       this.setState({ area });
     }
   };
