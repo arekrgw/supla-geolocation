@@ -4,7 +4,7 @@
 
 Current Version: 0.5 (beta testing)
 
-SUPLA - (open software for home automation) - https://supla.org
+SUPLA - (open software for home automation) - https://forum.supla.org/viewtopic.php?f=11&t=5375
 
 ## Todo
 
